@@ -1,3 +1,4 @@
+from typing import Optional
 from app.models.user import User
 from app.extensions import db
 
@@ -7,5 +8,5 @@ class UserRepository:
         db.session.commit()
         return user
 
-    def get(self, user_id: int) -> User:
+    def get(self, user_id: int) -> Optional[User]:
         return db.session.get(User, user_id)

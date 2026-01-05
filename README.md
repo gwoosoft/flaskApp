@@ -7,7 +7,7 @@ This is a simple Flask application with a `/create` endpoint that accepts JSON v
 ## Running the App
 
 to check if complies first
-mypy app.py
+mypy run.py
 
 1. Activate your virtual environment:
 
