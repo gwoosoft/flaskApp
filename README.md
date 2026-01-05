@@ -1,6 +1,10 @@
 # FlaskApp
 
-This is a simple Flask application with a `/create` endpoint that accepts JSON via POST requests.
+This is a simple Flask application to be used for various backend projects I will be working on. 
+
+Feel free to use this. I am using this base code to create different applications you will see in the appstore. The idea is that I may run only one or two EC2 or even just run server on my computer to handle some of simple apps until it gets big so I don't have to pour money. 
+
+I am planning to add more for authentication methods like google/facebook/apple in the future.
 
 ---
 
@@ -11,43 +15,16 @@ mypy run.py
 
 1. Activate your virtual environment:
 
-```bash
+``` 
 source venv/bin/activate
 ./run.sh
 
+if you want to run this with docker
+use this command: `runflaskdocker`
 
-curl -X POST http://127.0.0.1:5000/create \
-     -H "Content-Type: application/json" \
-     -d '{"name": "Alice", "age": 17}'
+to run with load balancer with 3 pods:
 
-# Using data.json a
-
-curl -X POST http://127.0.0.1:5000/create \
-     -H "Content-Type: application/json" \
-     -d @data.json
-
-
-curl -X POST http://localhost/create \
-     -H "Content-Type: application/json" \
-     -d @data.json
-
-
-curl -X POST http://localhost/users      -H "Content-Type: application/json"      -d '{"name": "Alice"}'
-{
-  "status": "ok",
-  "user": {
-    "id": 17,
-    "name": "Alice"
-  }
-
-curl -X GET http://localhost/users/1
-
-if you want to run this with docker:
-runflaskdocker this alias. 
-
-to run via load balancer: 
-
-flaskdev : this alias for what is doing with docker run and using nginx :
+flaskdev - this is alias - for running with docker on the top of nginx :
 
 if you want to set this up as alias:
 
@@ -65,10 +42,6 @@ source ~/.bashrc
 ```
 
 
-run the app: 
-```
-flaskdev
-```
 
 to run db only via docker : docker-compose up -d db
 
@@ -79,8 +52,6 @@ docker run -d \
   -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro \
   --name nginx-lb \
   nginx
-
-  or docker-compose up -d
 
 To shut down 
 ```

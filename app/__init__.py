@@ -2,11 +2,12 @@ from flask import Flask, jsonify
 from werkzeug.exceptions import BadRequest
 from app.errors.errors import AppError
 from dotenv import load_dotenv
-from app.extensions import db
+from app.extensions import db, jwt
 from app.config import Config
 from app.repositories.user_repository import UserRepository
 from app.services.user_service import UserService
 from app.routes.user_routes import user_bp
+from app.routes.auth_routes import auth_bp
 from app.facades.user_facade import UserFacade
 
 def create_app():
@@ -15,6 +16,7 @@ def create_app():
     app.config.from_object(Config)
 
     db.init_app(app)
+    jwt.init_app(app)
 
     # ---- global error handlers ----
     register_error_handlers(app)
@@ -29,6 +31,7 @@ def create_app():
     app.config["user_facade"] = user_facade
 
     app.register_blueprint(user_bp)
+    app.register_blueprint(auth_bp)
 
     @app.route("/")
     def home():

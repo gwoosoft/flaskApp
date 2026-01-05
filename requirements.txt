@@ -1,5 +1,8 @@
 flask
 flask_sqlalchemy
+flask-jwt-extended
 psycopg2-binary
 python-dotenv
 pydantic>=2.0
+email-validator
+werkzeug
