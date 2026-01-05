@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  flask:
+    build: .
+    deploy:
+      replicas: 3
+    expose:
+      - "5000"
+    environment:
+      - FLASK_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/mydb
+    depends_on:
+      - db
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-lb
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - flask
+    restart: always
+
+  db:
+    image: postgres:15
+    container_name: flaskapp-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:
